@@ -55,7 +55,7 @@ module.exports = {
   },
 
   proxy: {
-    '/api/': 'https://www.tamarindbonsai.in',
+    '/api/': 'https://us-central1-tamarind-bonsai.cloudfunctions.net/api',
   },
   /*
    ** Build configuration
