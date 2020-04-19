@@ -25,7 +25,7 @@ export default {
   },
   async asyncData({ params }) {
     const { data } = await axios.get(
-      `/api/blogList`
+      `https://us-central1-tamarind-bonsai.cloudfunctions.net/api/api/blogList`
     )
     const thisBlog = data.find((item)=>{
         return item.slug === params.id;

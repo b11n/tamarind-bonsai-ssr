@@ -24,7 +24,7 @@ export default {
     return {title: "Blog | Tamarind Bonsai Kottayam - Browse and buy Bonsai plants , tools and resources in Kottayam , Kerala"};
   },
   async asyncData ({ params }) {
-    const { data } = await axios.get(`/api/blogList`)
+    const { data } = await axios.get(`https://us-central1-tamarind-bonsai.cloudfunctions.net/api/api/blogList`)
     return { blogSummaryList: data.reverse() }
   }
 }
