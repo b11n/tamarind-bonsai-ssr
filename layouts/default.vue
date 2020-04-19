@@ -18,7 +18,7 @@
         </div>
         <div class="nav-item">
           <div class="text">
-            <router-link to="/gallery">Gallery</router-link>
+            <router-link to="/explore">Gallery</router-link>
           </div>
         </div>
         <div class="nav-item">

@@ -14,7 +14,7 @@
         <b-col sm="12" md="6" class="home-col">
           <HomeCard title="gallery">
             <gallery :mini="true" />
-            <b-link class="btn btn-primary active learn-more" to="/gallery">View More</b-link>
+            <b-link class="btn btn-primary active learn-more" to="/explore">View More</b-link>
           </HomeCard>
         </b-col>
       </b-row>
