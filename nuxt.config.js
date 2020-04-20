@@ -51,9 +51,8 @@ module.exports = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    proxy: false // Can be also an object with default options
+    baseURL: `http://localhost:${process.env.NUXT_PORT || 3000}`,
   },
-
   /*
    ** Build configuration
    */

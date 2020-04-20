@@ -50,7 +50,7 @@ export default {
 
   mounted: function() {
     axios
-      .get(`https://us-central1-tamarind-bonsai.cloudfunctions.net/api/api/photoList`)
+      .get(`/api/photoList`)
       .then(({ data }) => {
         this.photos = layoutImages(data, {
           width: this.$refs.root.getBoundingClientRect().width,

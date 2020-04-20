@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   components: {
   },
@@ -23,14 +22,9 @@ export default {
           title: this.title
       }
   },
-  async asyncData({ params }) {
-    const { data } = await axios.get(
-      `https://us-central1-tamarind-bonsai.cloudfunctions.net/api/api/blogList`
-    )
-    const thisBlog = data.find((item)=>{
-        return item.slug === params.id;
-    });
-    return { blog: thisBlog, title: thisBlog.title }
+  async asyncData({ $axios, params }) {
+    const { data } = await $axios.get(`/api/blogPost/${params.id}`)
+    return { blog: data, title: data.title }
   }
 }
 </script>

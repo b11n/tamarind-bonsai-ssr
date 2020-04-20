@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import ListItem from '~/components/blog/ListItem'
 
 export default {
@@ -23,8 +22,8 @@ export default {
   head: function() {
     return {title: "Blog | Tamarind Bonsai Kottayam - Browse and buy Bonsai plants , tools and resources in Kottayam , Kerala"};
   },
-  async asyncData ({ params }) {
-    const { data } = await axios.get(`https://us-central1-tamarind-bonsai.cloudfunctions.net/api/api/blogList`)
+  async asyncData ({ $axios, params }) {
+    const { data } = await $axios.get('/api/blogList')
     return { blogSummaryList: data.reverse() }
   }
 }
