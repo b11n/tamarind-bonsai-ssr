@@ -1,6 +1,8 @@
 const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+const apiRouter = require('./api')
+
 const app = express()
 
 // Import and Set Nuxt.js options
@@ -20,8 +22,12 @@ async function start() {
     await builder.build()
   }
 
+  app.use('/api', apiRouter);
+
   // Give nuxt middleware to express
   app.use(nuxt.render)
+
+
 
   // Listen the server
   app.listen(port, host)

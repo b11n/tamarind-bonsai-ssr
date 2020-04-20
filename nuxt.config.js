@@ -51,12 +51,9 @@ module.exports = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    proxy: true // Can be also an object with default options
+    proxy: false // Can be also an object with default options
   },
 
-  proxy: {
-    '/api/': 'https://us-central1-tamarind-bonsai.cloudfunctions.net/api',
-  },
   /*
    ** Build configuration
    */
