@@ -1,6 +1,3 @@
-const dev = process.env.NODE_ENV !== 'production';
-
-console.log(dev);
 module.exports = {
   mode: 'universal',
   /*
@@ -54,6 +51,7 @@ module.exports = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
+    browserBaseURL: '/'
   },
   /*
    ** Build configuration
