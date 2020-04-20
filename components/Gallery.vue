@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import GalleryPlaceholder from './GalleryPlaceholder'
 import { layoutImages } from './common/utils.js'
 export default {
@@ -49,7 +48,7 @@ export default {
   },
 
   mounted: function() {
-    axios
+    this.$axios
       .get(`/api/photoList`)
       .then(({ data }) => {
         this.photos = layoutImages(data, {
