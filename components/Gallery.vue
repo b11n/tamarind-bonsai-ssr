@@ -28,6 +28,43 @@
         </div>
       </div>
       <GalleryPlaceholder slot="placeholder" :mini="mini" />
+
+      <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+          <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+          </div>
+          <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+              <div class="pswp__counter"></div>
+              <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+              <span class="rotation-wrapper">
+              </span>
+
+              <button class="pswp__button pswp__button--share" title="Share"></button>
+              <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+              <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+              <div class="pswp__preloader">
+                <div class="pswp__preloader__icn">
+                  <div class="pswp__preloader__cut">
+                    <div class="pswp__preloader__donut"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+              <div class="pswp__share-tooltip"></div>
+            </div>
+            <div class="pswp__caption">
+              <div class="pswp__caption__center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </client-only>
   </div>
 </template>
@@ -35,6 +72,8 @@
 <script>
 import GalleryPlaceholder from './GalleryPlaceholder'
 import { layoutImages } from './common/utils.js'
+import initPhotoSwipe from './common/photoSwipe.js';
+
 export default {
   components: { GalleryPlaceholder },
   props: {
@@ -54,12 +93,18 @@ export default {
         this.photos = layoutImages(data, {
           width: this.$refs.root.getBoundingClientRect().width,
           thumbnails: this.$props.mini
-        })
+        });
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e)
         this.photos = []
       })
-  }
+  },
+  updated: function() {
+    if(this.photos.length > 0) {
+      initPhotoSwipe('.awesome-gallery', this);
+    }
+  },
 }
 </script>
 

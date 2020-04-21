@@ -25,8 +25,8 @@ apiRouter.get('/photoList', (req,res) => {
             };
         });
         res.send(resp);
-    }).catch(() => {
-        res.send([])
+    }).catch((e) => {
+        res.send(e)
     })
 });
 
