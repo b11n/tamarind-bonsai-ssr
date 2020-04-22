@@ -27,6 +27,7 @@
           </figure>
         </div>
       </div>
+      <button v-if="!mini && currentPage != totalPage">Load More</button>
       <GalleryPlaceholder slot="placeholder" :mini="mini" />
 
       <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -83,22 +84,30 @@ export default {
     }
   },
   data: function() {
-    return { photos: [], source: null }
+    return { rawPhotoList: [], photos: [], source: null, currentPage: 1,totalPage: 1 }
   },
-
-  mounted: function() {
+  methods: {
+    fetchPage: function() {
     this.$axios
-      .get(`/api/photoList`)
+      .get(`/api/photoList?pageNo=${this.currentPage}`)
       .then(({ data }) => {
-        this.photos = layoutImages(data, {
+        
+        this.rawPhotoList = this.rawPhotoList.concat(data.photoset.photo)
+        this.totalPage = data.photoset.pages;
+        this.currentPage = parseInt(data.photoset.page)
+        this.photos = layoutImages(this.rawPhotoList, {
           width: this.$refs.root.getBoundingClientRect().width,
           thumbnails: this.$props.mini
         });
       })
       .catch((e) => {
-        console.log(e)
         this.photos = []
       })
+    },
+  },
+
+  mounted: function() {
+    this.fetchPage();
   },
   updated: function() {
     if(this.photos.length > 0) {

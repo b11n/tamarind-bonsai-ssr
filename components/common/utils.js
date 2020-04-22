@@ -49,7 +49,7 @@ function layoutImages(images, action) {
     }
 
     if(action.thumbnails) {
-        MAX_ITEMS_IN_ROW = 3;
+        MAX_ITEMS_IN_ROW = 4;
     }
 
     const galleryRowList = [];
@@ -69,11 +69,15 @@ function layoutImages(images, action) {
         }
         presentIndex++;
     }
+    if(!action.thumbnails && currentRow.getList().length > 0 ) {
+        currentRow.setDimensions(getDimensionsForRow(currentRow, MAX_WIDTH, true));
+        galleryRowList.push(currentRow)
+    }
     return galleryRowList;
 }
 
-function getDimensionsForRow(row, max_width) {
-    const widthDiffRatio = 5 / row.getTotal();
+function getDimensionsForRow(row, max_width, is_last = false) {
+    const widthDiffRatio = is_last ? 2 : 5 / row.getTotal();
     const dimensions = [];
     let totalLength = 0;
 
@@ -85,7 +89,7 @@ function getDimensionsForRow(row, max_width) {
         
         dimensions.push({ height, width , s_text: item.width_l + "x" + item.height_l});
     });
-    const rowToWindowRatio = max_width / totalLength;
+    const rowToWindowRatio = is_last ? 1 : max_width / totalLength;
     return dimensions.map((item) => {
         return {
             height: item.height * rowToWindowRatio,

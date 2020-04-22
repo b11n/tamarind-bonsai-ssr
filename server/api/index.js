@@ -1,33 +1,21 @@
 const {Router} = require('express');
-const axios = require('axios');
 const blogPostsFull = require('../data/blog_data');
+const Flickr = require('flickr-sdk');
 
 const apiRouter = new Router();
+const flickr = new Flickr(process.env.FLICKR_API_KEY);
 
 apiRouter.get('/photoList', (req,res) => {
-
-    const apiKey = process.env.FLICKR_API_KEY;
-    const endpoint = `https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&user_id=148788824@N07&format=json&nojsoncallback=1&api_key=${apiKey}&gallery_id=72157678182521264&extras=url_s,url_t,url_l,description`;
-    axios.request({
-        url: endpoint,
-    }).then(async (response) => {
-        const photos = response.data.photos;
-        const resp = photos.photo.map((item) => {
-            return {
-                id: item.id,
-                title: item.title,
-                url_s: item.url_s,
-                url_l: item.url_l,
-                height_s: item.height_s,
-                width_s: item.width_s,
-                height_l: item.height_l,
-                width_l: item.width_l,
-            };
-        });
-        res.send(resp);
-    }).catch((e) => {
-        res.send(e)
-    })
+    const page = req.query.pageNo || 1;
+    flickr.photosets.getPhotos({
+        photoset_id: '72157713980787711',
+        user_id: '148788824@N07',
+        extras: 'url_s,url_t,url_l,description,tags',
+        page,
+        per_page: 100,
+    }).then((data)=>{
+        res.send(data.body);
+    });
 });
 
 apiRouter.get('/blogList', (_req, res) => {
@@ -38,7 +26,6 @@ apiRouter.get('/blogPost/:id', (req, res) => {
     const result = blogPostMapper(blogPostsFull.find(item => item.slug === req.params.id));
     res.send(result);
 });
-
 
 function blogPostMapper(blogPost) {
     return {
