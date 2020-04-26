@@ -69,9 +69,12 @@ function layoutImages(images, action) {
         }
         presentIndex++;
     }
-    if(!action.thumbnails && currentRow.getList().length > 0 ) {
+    if(!action.thumbnails && currentRow.getList().length < 3 ) {
         currentRow.setDimensions(getDimensionsForRow(currentRow, MAX_WIDTH, true));
-        galleryRowList.push(currentRow)
+        galleryRowList.push(currentRow);
+    }else {
+        currentRow.setDimensions(getDimensionsForRow(currentRow, MAX_WIDTH, false));
+        galleryRowList.push(currentRow);
     }
     return galleryRowList;
 }
