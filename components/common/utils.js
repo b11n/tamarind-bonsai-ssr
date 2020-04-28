@@ -65,14 +65,14 @@ function layoutImages(images, action) {
         }
         currentRow.push(images[presentIndex])
         if(action.thumbnails && galleryRowList.length >= 2) {
-            break;
+            return galleryRowList;
         }
         presentIndex++;
     }
     if(!action.thumbnails && currentRow.getList().length < 3 ) {
         currentRow.setDimensions(getDimensionsForRow(currentRow, MAX_WIDTH, true));
         galleryRowList.push(currentRow);
-    }else {
+    } else {
         currentRow.setDimensions(getDimensionsForRow(currentRow, MAX_WIDTH, false));
         galleryRowList.push(currentRow);
     }
